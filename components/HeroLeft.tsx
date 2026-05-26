@@ -166,9 +166,7 @@ export default function HeroLeft({ hideCtas = false }: { hideCtas?: boolean }) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
         >
-          Lumina AI is your hyper-intelligent co-pilot. Spend less time on
-          paperwork and more time inspiring students with automated lesson
-          plans, personalized notes, and instant assessments.
+          Your intelligent classroom co-pilot. Automate lesson plans, notes, and assessments instantly so you can focus on inspiring students.
         </motion.p>
 
         {/* CTA Buttons */}
