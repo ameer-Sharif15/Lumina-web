@@ -191,14 +191,14 @@ export default function HowItWorksClient() {
                   {/* Right: card */}
                   <div className='flex-1 pb-5'>
                     <div className='p-6 bg-white rounded-3xl border border-slate-200 hover:border-slate-300 transition-colors duration-200 group'>
-                      <div className='flex items-start gap-4'>
+                      <div className='flex flex-col sm:flex-row items-start gap-4'>
                         <div
                           className='size-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5'
                           style={{ backgroundColor: `${step.color}15` }}
                         >
                           <Icon className='text-xl' style={{ color: step.color }} />
                         </div>
-                        <div className='flex-1'>
+                        <div className='flex-1 w-full'>
                           <div className='flex items-center gap-3 mb-1.5'>
                             <h2 className='text-base font-bold text-slate-900'>
                               {step.title}
