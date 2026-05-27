@@ -17,9 +17,9 @@ const NAV_LINKS = [
   { href: '/features', label: 'Features' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/how-it-works', label: 'How it Works' },
-  { href: '/privacy-policy', label: 'Privacy Policy' },
   { href: '/faqs', label: 'FAQs' },
   { href: '/contact', label: 'Contact Us' },
+  // { href: '/privacy-policy', label: 'Privacy Policy' },
 ];
 
 /**
