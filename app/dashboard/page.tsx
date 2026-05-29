@@ -233,6 +233,7 @@ export default function DashboardHomePage() {
     schedule,
     loadingSchedule,
     isTomorrow,
+    classes,
     scheduleData,
     loadingClasses,
     planCount,
@@ -302,10 +303,7 @@ export default function DashboardHomePage() {
               {
                 icon: Users,
                 label: t("classes"),
-                value:
-                  Object.values(scheduleData).flat().length > 0
-                    ? Object.keys(scheduleData).length
-                    : 0,
+                value: classes.length,
               },
               { icon: BookOpen, label: t("plans"), value: planCount },
               { icon: Award, label: t("tests"), value: assessmentCount },

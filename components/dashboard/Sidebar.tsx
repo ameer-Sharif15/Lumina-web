@@ -1,6 +1,6 @@
 'use client';
 
-import { lsvg } from '@/assets';
+import { lsvg, noBg } from '@/assets';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from '@/context/LanguageContext';
 import {
@@ -62,14 +62,14 @@ export default function Sidebar() {
       style={{ boxShadow: '2px 0 16px 0 rgba(0,0,0,0.03)' }}
     >
       {/* ─── Logo Area ─── */}
-      <div className='px-5 pt-7 pb-6'>
-        <div className='flex items-center gap-2 mb-0.5'>
+      <div className='px-5 pt-7 pb-6 w-full'>
+        <div className='flex items-center justify-center  gap-2 mb-0.5 w-full '>
           <Image
-            src={lsvg}
+            src={noBg}
             alt='Lumina'
-            width={36}
-            height={30}
-            className=' w-full object-contain '
+            width={150}
+            height={150}
+            className='  object-contain '
           />
         </div>
         <p className='text-[11px] text-slate-400 font-medium mt-1.5 pl-12'>
@@ -131,7 +131,7 @@ export default function Sidebar() {
         {/* ── Sign Out ── */}
         <button
           onClick={handleLogout}
-          className='w-full flex items-center gap-3 px-4 py-2.5 rounded-full text-[13px] font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-all cursor-pointer group'
+          className='w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-all cursor-pointer group'
         >
           <LogOut
             size={17}

@@ -623,32 +623,66 @@ export default function LessonNotePage({
             {(note.mainContent || []).map((item: any, idx: number) => (
               <div
                 key={idx}
-                className="flex items-start gap-4 p-5 bg-slate-50/30 border border-slate-100 rounded-3xl relative"
+                className="flex flex-col md:flex-row items-stretch md:items-start gap-4 p-5 bg-slate-50/30 border border-slate-100 rounded-3xl relative"
               >
-                {/* Step indicator */}
-                <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
+                {/* Step indicator (desktop only) */}
+                <div className="hidden md:flex w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
                   {idx + 1}
                 </div>
 
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 space-y-4 w-full">
                   {/* Step Heading */}
                   <div className="flex items-center justify-between gap-3">
                     {isEditing ? (
-                      <input
-                        type="text"
-                        value={item.heading}
-                        placeholder={
-                          t("step_title_placeholder") || "Heading..."
-                        }
-                        onChange={(e) =>
-                          handleUpdateStep(idx, "heading", e.target.value)
-                        }
-                        className="flex-1 text-sm font-extrabold text-slate-800 bg-white border border-slate-100 rounded-xl p-2 outline-none focus:border-indigo-500 focus:ring-1"
-                      />
+                      <>
+                        {/* Desktop only Heading input */}
+                        <div className="hidden md:flex flex-1 items-center gap-3">
+                          <input
+                            type="text"
+                            value={item.heading}
+                            placeholder={
+                              t("step_title_placeholder") || "Heading..."
+                            }
+                            onChange={(e) =>
+                              handleUpdateStep(idx, "heading", e.target.value)
+                            }
+                            className="flex-1 text-sm font-extrabold text-slate-800 bg-white border border-slate-100 rounded-xl p-2 outline-none focus:border-indigo-500 focus:ring-1"
+                          />
+                        </div>
+                        {/* Mobile only Heading input with Step Number */}
+                        <div className="flex md:hidden flex-1 items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
+                            {idx + 1}
+                          </div>
+                          <input
+                            type="text"
+                            value={item.heading}
+                            placeholder={
+                              t("step_title_placeholder") || "Heading..."
+                            }
+                            onChange={(e) =>
+                              handleUpdateStep(idx, "heading", e.target.value)
+                            }
+                            className="flex-1 text-sm font-extrabold text-slate-800 bg-white border border-slate-100 rounded-xl p-2 outline-none focus:border-indigo-500 focus:ring-1"
+                          />
+                        </div>
+                      </>
                     ) : (
-                      <h3 className="font-extrabold text-slate-900 text-sm leading-snug">
-                        {item.heading}
-                      </h3>
+                      <>
+                        {/* Desktop only heading */}
+                        <h3 className="hidden md:block font-extrabold text-slate-900 text-sm leading-snug">
+                          {item.heading}
+                        </h3>
+                        {/* Mobile only heading with Step Number */}
+                        <div className="flex md:hidden items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
+                            {idx + 1}
+                          </div>
+                          <h3 className="font-extrabold text-slate-900 text-sm leading-snug">
+                            {item.heading}
+                          </h3>
+                        </div>
+                      </>
                     )}
 
                     {isEditing && (

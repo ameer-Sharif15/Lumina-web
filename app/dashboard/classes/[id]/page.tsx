@@ -46,25 +46,41 @@ export default function ClassDetailsPage() {
 
   // Group schedules by subject to display summaries
   const getSubjectSummary = () => {
-    if (!classInfo || !classInfo.schedule) return [];
+    if (!classInfo) return [];
     const summaryMap: Record<string, any> = {};
 
-    classInfo.schedule.forEach((p: any) => {
-      if (!summaryMap[p.subject]) {
-        summaryMap[p.subject] = {
-          id: p.subject,
-          name: p.subject,
+    // Initialize all assigned subjects first so they appear even without a schedule period
+    if (classInfo.subjects && Array.isArray(classInfo.subjects)) {
+      classInfo.subjects.forEach((subjectName: string) => {
+        summaryMap[subjectName] = {
+          id: subjectName,
+          name: subjectName,
           periods: 0,
           schedule: [],
           color: classInfo.color || '#006D4E',
         };
-      }
-      summaryMap[p.subject].periods += 1;
-      summaryMap[p.subject].schedule.push({
-        day: t(`day_${p.day.toLowerCase()}`, { defaultValue: p.day }),
-        time: `${p.startTime} - ${p.endTime}`,
       });
-    });
+    }
+
+    // Populate schedules from the timetable if they exist
+    if (classInfo.schedule && Array.isArray(classInfo.schedule)) {
+      classInfo.schedule.forEach((p: any) => {
+        if (!summaryMap[p.subject]) {
+          summaryMap[p.subject] = {
+            id: p.subject,
+            name: p.subject,
+            periods: 0,
+            schedule: [],
+            color: classInfo.color || '#006D4E',
+          };
+        }
+        summaryMap[p.subject].periods += 1;
+        summaryMap[p.subject].schedule.push({
+          day: t(`day_${p.day.toLowerCase()}`, { defaultValue: p.day }),
+          time: `${p.startTime} - ${p.endTime}`,
+        });
+      });
+    }
 
     return Object.values(summaryMap);
   };
@@ -213,6 +229,11 @@ export default function ClassDetailsPage() {
                         <span className="text-[11px] text-slate-500 font-medium">{slot.time}</span>
                       </div>
                     ))}
+                    {subject.schedule.length === 0 && (
+                      <span className="text-xs text-slate-400 italic font-semibold">
+                        {t('no_classes_scheduled') || 'No classes scheduled'}
+                      </span>
+                    )}
                   </div>
                 </div>
 

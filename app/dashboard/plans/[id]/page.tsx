@@ -594,7 +594,7 @@ export default function PlanDetailPage({
 
       {/* Lesson Note Floating Prompt Card */}
       <div className="mb-8">
-        {plan.lessonNote?.summary ? (
+        {plan.lessonNote && (plan.lessonNote.summary || plan.lessonNote.introduction || plan.lessonNote.mainContent?.length || Object.keys(plan.lessonNote).length > 0) ? (
           <div className="p-6 bg-indigo-50/50 border border-indigo-100/50 rounded-3xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center">
@@ -837,18 +837,40 @@ export default function PlanDetailPage({
             {(plan.presentation || []).map((step: any, idx: number) => (
               <div
                 key={idx}
-                className="bg-slate-50/50 p-6 rounded-3xl border border-slate-100/60 flex items-start gap-4 relative group"
+                className="bg-slate-50/50 p-6 rounded-3xl border border-slate-100/60 flex flex-col md:flex-row items-stretch md:items-start gap-4 relative group"
               >
-                {/* Step indicator */}
-                <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
+                {/* Step indicator (desktop only) */}
+                <div className="hidden md:flex w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
                   {step.step ?? idx + 1}
                 </div>
 
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 space-y-4 w-full">
                   {isEditing ? (
                     <div className="space-y-3">
-                      {/* Step Header Title */}
-                      <div className="flex items-center gap-2">
+                      {/* Step Header Title (desktop only) */}
+                      <div className="hidden md:flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={step.title}
+                          placeholder="Step title..."
+                          onChange={(e) =>
+                            handleUpdateStep(idx, "title", e.target.value)
+                          }
+                          className="flex-1 text-sm bg-white border border-slate-100 rounded-xl p-2.5 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/25 font-bold"
+                        />
+                        <button
+                          onClick={() => handleDeleteStep(idx)}
+                          className="text-rose-500 hover:text-rose-600 p-1 flex-shrink-0 cursor-pointer self-center"
+                        >
+                          <Trash size={16} />
+                        </button>
+                      </div>
+
+                      {/* Step Header Title (mobile only) */}
+                      <div className="flex md:hidden items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
+                          {step.step ?? idx + 1}
+                        </div>
                         <input
                           type="text"
                           value={step.title}
@@ -910,10 +932,20 @@ export default function PlanDetailPage({
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {/* Step title */}
-                      <h4 className="font-extrabold text-slate-800 text-sm leading-snug">
+                      {/* Step title (desktop only) */}
+                      <h4 className="hidden md:block font-extrabold text-slate-800 text-sm leading-snug">
                         {step.title}
                       </h4>
+
+                      {/* Step Title & Number (mobile only) */}
+                      <div className="flex md:hidden items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-extrabold text-xs flex-shrink-0">
+                          {step.step ?? idx + 1}
+                        </div>
+                        <h4 className="font-extrabold text-slate-800 text-sm leading-snug">
+                          {step.title}
+                        </h4>
+                      </div>
 
                       {/* Main text content */}
                       {step.content && (
