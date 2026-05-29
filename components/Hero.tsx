@@ -12,7 +12,7 @@ export default function Hero() {
     <section className='relative min-h-dvh lg:min-h-screen flex items-stretch justify-center bg-background'>
       <div className='relative z-10 w-full lg:min-h-screen lg:h-screen flex flex-col lg:flex-row gap-2 items-stretch p-1 sm:p-2'>
         {/* Left Side — solid brand blue (sole column on small screens) */}
-        <div className='flex flex-1 flex-col min-h-0 lg:min-h-0 md:rounded-3xl py-8 px-4 sm:py-12 sm:px-6 lg:py-20 lg:px-12 relative overflow-hidden bg-[#006c51] max-lg:min-h-dvh'>
+        <div className='flex flex-1 flex-col min-h-0 lg:min-h-0 rounded-3xl py-8 px-4 sm:py-12 sm:px-6 lg:py-20 lg:px-12 relative overflow-hidden bg-[#006c51] max-lg:min-h-dvh'>
           {/* LightRays Background */}
           <div
             className='absolute inset-0 w-full h-full'
