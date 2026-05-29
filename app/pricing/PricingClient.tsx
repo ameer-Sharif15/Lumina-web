@@ -8,10 +8,10 @@ import Link from 'next/link';
 import {
   LuArrowRight,
   LuCheck,
-  LuX,
-  LuSparkles,
-  LuZap,
   LuCrown,
+  LuSparkles,
+  LuX,
+  LuZap,
 } from 'react-icons/lu';
 
 const containerVariants = {
@@ -175,12 +175,6 @@ export default function PricingClient() {
                       : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
-                  {/* Coloured top accent bar */}
-                  <div
-                    className='h-1 w-full'
-                    style={{ backgroundColor: plan.accentColor }}
-                  />
-
                   <div className='p-6 sm:p-8'>
                     {/* Badge */}
                     {plan.badge && (
@@ -234,11 +228,16 @@ export default function PricingClient() {
                     {/* Features grid */}
                     <ul className='grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 mb-7'>
                       {plan.features.map((f) => (
-                        <li key={f.text} className='flex items-center gap-2.5 text-sm'>
+                        <li
+                          key={f.text}
+                          className='flex items-center gap-2.5 text-sm'
+                        >
                           {f.included ? (
                             <span
                               className='shrink-0 size-4 rounded-full flex items-center justify-center'
-                              style={{ backgroundColor: `${plan.accentColor}20` }}
+                              style={{
+                                backgroundColor: `${plan.accentColor}20`,
+                              }}
                             >
                               <LuCheck
                                 className='text-[10px]'
@@ -250,7 +249,11 @@ export default function PricingClient() {
                               <LuX className='text-[10px] text-slate-400' />
                             </span>
                           )}
-                          <span className={f.included ? 'text-slate-700' : 'text-slate-400'}>
+                          <span
+                            className={
+                              f.included ? 'text-slate-700' : 'text-slate-400'
+                            }
+                          >
                             {f.text}
                           </span>
                         </li>
