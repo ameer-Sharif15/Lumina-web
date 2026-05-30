@@ -3,6 +3,7 @@
 import { noBg, white } from '@/assets';
 import { useAuth } from '@/context/AuthContext';
 import apiClient from '@/lib/api';
+import { getDeviceId } from '@/lib/deviceId';
 import { auth, googleProvider } from '@/lib/firebase';
 import {
   getRedirectResult,
@@ -38,11 +39,14 @@ export default function HeroLeft({ hideCtas = false }: { hideCtas?: boolean }) {
 
         if (!idToken) throw new Error('Failed to retrieve Google ID token.');
 
+        const deviceId = await getDeviceId();
+
         const response = await apiClient.post('/auth/google', {
           idToken,
           fullName: result.user.displayName,
           email: result.user.email,
           photoURL: result.user.photoURL,
+          deviceId,
         });
         const { token, user } = response.data;
         setUser(user, token);
@@ -84,11 +88,14 @@ export default function HeroLeft({ hideCtas = false }: { hideCtas?: boolean }) {
         throw new Error('Failed to retrieve Google ID token.');
       }
 
+      const deviceId = await getDeviceId();
+
       const response = await apiClient.post('/auth/google', {
         idToken,
         fullName: result.user.displayName,
         email: result.user.email,
         photoURL: result.user.photoURL,
+        deviceId,
       });
       const { token, user } = response.data;
 
